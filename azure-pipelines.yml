@@ -1,4 +1,10 @@
 # Starter pipeline
+- task: AzureKeyVault@2
+  inputs:
+    azureSubscription: 'Azure subscription 1(24249cfa-81f0-427c-932d-621edd58f968)'
+    KeyVaultName: 'kv-security-ci'
+    SecretsFilter: '*'
+    RunAsPreJob: true
 # Start with a minimal pipeline that you can customize to build and deploy your code.
 # Add steps that build, run tests, deploy, and more:
 # https://aka.ms/yaml
@@ -20,10 +26,10 @@ steps:
   inputs:
     filePath: 'az.tools/terraform_deploy.sh'
   env:
-    ARM_SUBSCRIPTION_ID: $(TF_ARM_SUBSCRIPTION_ID)
-    ARM_CLIENT_ID:       $(TF_ARM_CLIENT_ID)
-    ARM_CLIENT_SECRET:   $(TF_ARM_CLIENT_SECRET)
-    ARM_TENANT_ID:       $(TF_ARM_TENANT_ID) 
+    ARM_SUBSCRIPTION_ID: $(kv-arm-subscription-id)
+    ARM_CLIENT_ID:       $(kv-arm-client-id)
+    ARM_CLIENT_SECRET:   $(kv-arm-client-secret)
+    ARM_TENANT_ID:       $(kv-arm-tenant-id) 
   
 
 
