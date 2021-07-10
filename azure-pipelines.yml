@@ -19,5 +19,11 @@ steps:
 - task: Bash@3
   inputs:
     filePath: 'az.tools/terraform_deploy.sh'
+  env:
+    ARM_SUBSCRIPTION_ID: $(TF_ARM_SUBSCRIPTION_ID)
+    ARM_CLIENT_ID:       $(TF_ARM_CLIENT_ID)
+    ARM_CLIENT_SECRET:   $(TF_ARM_CLIENT_SECRET)
+    ARM_TENANT_ID:       $(TF_ARM_TENANT_ID) 
+  
 
 
