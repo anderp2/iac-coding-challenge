@@ -16,5 +16,8 @@ steps:
     echo PWD: `pwd`
     echo ENV: `env`
   displayName: 'Get Deployment tools'
+- task: Bash@3
+  inputs:
+    filePath: 'az.tools/deploy_terraform.sh'
 
 
