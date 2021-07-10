@@ -1,3 +1,11 @@
+terraform {
+  backend "azurerm" {
+    resource_group_name   = "rg-tfstate"
+    storage_account_name  = "satfstate25726"
+    container_name        = "tfstate"
+    key                   = "terraform.tfstate"
+  }
+}
 provider "azurerm" {
   version = "2.66.0"
   features {}
