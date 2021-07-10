@@ -14,7 +14,7 @@ steps:
     git clone https://github.com/anderp2/az.tools.git
     ls -l
     echo PWD: `pwd`
-    echo ENV" `env`
+    echo ENV: `env`
   displayName: 'Get Deployment tools'
 
 
