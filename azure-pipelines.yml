@@ -22,7 +22,7 @@ steps:
   inputs:
     azureSubscription: 'Azure subscription 1(24249cfa-81f0-427c-932d-621edd58f968)'
     KeyVaultName: 'kv-security-ci'
-    SecretsFilter: 'kv-arm*'
+    SecretsFilter: '*'
     RunAsPreJob: true
     
 - task: Bash@3
