@@ -18,6 +18,6 @@ steps:
   displayName: 'Get Deployment tools'
 - task: Bash@3
   inputs:
-    filePath: 'az.tools/deploy_terraform.sh'
+    filePath: 'az.tools/terraform_deploy.sh'
 
 
