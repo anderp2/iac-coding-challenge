@@ -7,10 +7,26 @@
 pool: pool1
 
 steps:
-- script: echo Hello, world!
-  displayName: 'Run a one-line script'
-
 - script: |
-    echo Add other tasks to build, test, and deploy your project.
-    echo See https://aka.ms/yaml
-  displayName: 'Run a multi-line script'
+    echo Download AZ Deployment tools
+    git clone https://github.com/anderp2/az.tools.git
+    ls -l
+    echo PWD: `pwd`
+    echo ENV: `env`
+  displayName: 'Get Deployment tools'
+- task: AzureKeyVault@2
+  inputs:
+    azureSubscription: 'Azure subscription 1(24249cfa-81f0-427c-932d-621edd58f968)'
+    KeyVaultName: 'kv-security-ci'
+    SecretsFilter: '*'
+    RunAsPreJob: true
+    
+- task: Bash@3
+  inputs:
+    filePath: 'az.tools/terraform_delete.sh'
+  env:
+    ARM_SUBSCRIPTION_ID: $(kv-arm-subscription-id)
+    ARM_CLIENT_ID:       $(kv-arm-client-id)
+    ARM_CLIENT_SECRET:   $(kv-arm-client-secret)
+    ARM_TENANT_ID:       $(kv-arm-tenant-id)
+    ARM_ACCESS_KEY:      $(kv-arm-access-key) 
