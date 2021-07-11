@@ -4,15 +4,12 @@ terraform {
     storage_account_name  = "satfstate25726"
     container_name        = "tfstate"
     key                   = "terraform.tfstate"
-  }
-  terraform {
   required_providers {
     azurerm = {
       source  = "hashicorp/azurerm"
       version = "=2.46.00"
     }
   }
-}
 }
 provider "azurerm" {
   features {}
