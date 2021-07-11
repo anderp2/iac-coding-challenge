@@ -6,6 +6,8 @@
 
 pool: pool1
 
+trigger: none 
+
 steps:
 - script: |
     echo Download AZ Deployment tools
