@@ -16,7 +16,7 @@ provider "azurerm" {
   features {}
 }
 
-variable "resource_group"}
+variable "resource_group"{
   type = string
 }
 resource "azurerm_resource_group" "rg" {
