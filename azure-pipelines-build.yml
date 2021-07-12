@@ -32,7 +32,7 @@ steps:
     ARM_CLIENT_SECRET:   $(kv-arm-client-secret)
     ARM_TENANT_ID:       $(kv-arm-tenant-id)
     ARM_ACCESS_KEY:      $(kv-arm-access-key)
-    TF_VAR_resource_group: ${TF_VAR_resource_group}
+    TF_VAR_resource_group: $(resource-group)
   
 
 
