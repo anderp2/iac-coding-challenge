@@ -8,7 +8,7 @@ terraform {
   required_providers {
     azurerm = {
       source  = "hashicorp/azurerm"
-      version = "=2.46.00"
+      version = "=2.66.00"
     }
   }
 }
@@ -16,29 +16,32 @@ provider "azurerm" {
   features {}
 }
 
-resource "azurerm_resource_group" "rg-cc-dev" {
-  name     = "rg-dev-cc"
+variable "resource_group"}
+  type = string
+}
+resource "azurerm_resource_group" "rg" {
+  name     = var.resource_group
   location = "eastus"
 }
 
 resource "azurerm_virtual_network" "vnet-cc-dev" {
   name                = "vnet-cc-dev"
-  location            = azurerm_resource_group.rg-cc-dev.location
-  resource_group_name = azurerm_resource_group.rg-cc-dev.name
+  location            = azurerm_resource_group.rg.location
+  resource_group_name = azurerm_resource_group.rg.name
   address_space       = ["10.0.0.0/16"]
 }
 
 resource "azurerm_subnet" "subnet-cc-dev" {
   name           = "subnet-cc-dev"
-  resource_group_name = azurerm_resource_group.rg-cc-dev.name
+  resource_group_name = azurerm_resource_group.rg.name
   virtual_network_name = azurerm_virtual_network.vnet-cc-dev.name
   address_prefix = "10.0.0.0/24"
 }
 
 resource "azurerm_network_interface" "nic-cc-dev" {
   name                = "nic-cc-dev"
-  location            = azurerm_resource_group.rg-cc-dev.location
-  resource_group_name = azurerm_resource_group.rg-cc-dev.name
+  location            = azurerm_resource_group.rg.location
+  resource_group_name = azurerm_resource_group.rg.name
 
   ip_configuration {
     name                          = "internal"
@@ -49,8 +52,8 @@ resource "azurerm_network_interface" "nic-cc-dev" {
 
 resource "azurerm_linux_virtual_machine" "vm-cc-dev-1" {
   name                = "vm-cc-dev-1"
-  resource_group_name = azurerm_resource_group.rg-cc-dev.name
-  location            = azurerm_resource_group.rg-cc-dev.location
+  resource_group_name = azurerm_resource_group.rg.name
+  location            = azurerm_resource_group.rg.location
   size                = "Standard_F2"
   admin_username      = "adminuser"
   admin_password      = "letmeIN1@"
