@@ -62,7 +62,6 @@ variable "db_type"{
 
 variable "database_resource"{
   type = string
-  default = "azurerm_cosmosdb_${var.db_type}_database"
 }
 
 resource "random_integer" "ri" {
@@ -151,9 +150,9 @@ resource "azurerm_cosmosdb_account" "db_account" {
   } 
 }
 
-resource var.database_resource "db" {
-  name                = "tfex-cosmos-${var.db_type}-db"
-  resource_group_name = data.azurerm_cosmosdb_account.db_account.resource_group_name
-  account_name        = data.azurerm_cosmosdb_account.db_account.name
-  throughput          = 400
-}
+#resource var.database_resource "db" {
+#  name                = "tfex-cosmos-${var.db_type}-db"
+#  resource_group_name = data.azurerm_cosmosdb_account.db_account.resource_group_name
+#  account_name        = data.azurerm_cosmosdb_account.db_account.name
+#  throughput          = 400
+#}
