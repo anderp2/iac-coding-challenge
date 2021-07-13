@@ -84,7 +84,7 @@ resource "azurerm_network_interface" "nic-cc-dev" {
 }
 
 resource "azurerm_linux_virtual_machine" "vm-cc-dev-1" {
-  name                = vm.vm1_name
+  name                = var.vm1_name
   resource_group_name = azurerm_resource_group.rg.name
   location            = azurerm_resource_group.rg.location
   size                = var.vm1_size
