@@ -1,0 +1,43 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+
+pool: pool1
+
+trigger: none 
+
+steps:
+- script: |
+    echo Download AZ Deployment tools
+    git clone https://github.com/anderp2/az.tools.git
+    ls -l
+    echo PWD: `pwd`
+    echo ENV: `env`
+  displayName: 'Get Deployment tools'
+- task: AzureKeyVault@2
+  inputs:
+    azureSubscription: 'Azure subscription 1(24249cfa-81f0-427c-932d-621edd58f968)'
+    KeyVaultName: 'kv-security-ci'
+    SecretsFilter: '*'
+    RunAsPreJob: true
+    
+- task: Bash@3
+  inputs:
+    filePath: 'az.tools/terraform_delete.sh'
+  env:
+    ARM_SUBSCRIPTION_ID: $(kv-arm-subscription-id)
+    ARM_CLIENT_ID:       $(kv-arm-client-id)
+    ARM_CLIENT_SECRET:   $(kv-arm-client-secret)
+    ARM_TENANT_ID:       $(kv-arm-tenant-id)
+    ARM_ACCESS_KEY:      $(kv-arm-access-key)
+    TF_VAR_resource_group: rg-cc-dev
+    TF_VAR_vnet1: vnet1-cc-dev
+    TF_VAR_subnet1: subnet1-cc-dev
+    TF_VAR_vm1_name: vm-cc-dev-1
+    TF_VAR_vm1_size: Standard_F2
+    TF_VAR_vm1_publisher: OpenLogic
+    TF_VAR_vm1_sku: 7.7
+    TF_VAR_vm1_offer: CentOS
+    TF_VAR_vm1_version: latest
