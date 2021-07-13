@@ -52,10 +52,6 @@ variable "vm1_version"{
   type = string
 }
 
-variable "cosmosdb_account"{
-  type = string
-}
-
 variable "failover_location"{
   type = string
 }
