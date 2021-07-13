@@ -136,7 +136,6 @@ resource "azurerm_cosmosdb_account" "db" {
     location          = var.failover_location
     failover_priority = 0
   }
-  
-  ip_range_filter= azurerm_subnet.subnet1.address_prefix
+ 
 }
 
