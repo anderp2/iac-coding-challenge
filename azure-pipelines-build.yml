@@ -42,6 +42,7 @@ steps:
     TF_VAR_vm_offer: $(vm1-offer)
     TF_VAR_vm_version: $(vm1-version)
     
+    
   
 
 
