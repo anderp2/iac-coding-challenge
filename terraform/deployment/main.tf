@@ -52,6 +52,18 @@ variable "vm1_version"{
   type = string
 }
 
+variable "cosmosdb_account"{
+  type = string
+}
+
+variable "failover_location"{
+  type = string
+}
+
+resource "random_integer" "ri" {
+  min = 1000
+  max = 9999
+}
 resource "azurerm_resource_group" "rg" {
   name     = var.resource_group
   location = "eastus"
@@ -108,3 +120,28 @@ resource "azurerm_linux_virtual_machine" "vm-cc-dev-1" {
   }
 }
 
+resource "azurerm_cosmosdb_account" "db" {
+  name                = "tfex-cosmos-db-${random_integer.ri.result}"
+  location            = azurerm_resource_group.rg.location
+  resource_group_name = azurerm_resource_group.rg.name
+  offer_type          = "Standard"
+  kind                = "GlobalDocumentDB"
+  
+  enable_automatic_failover = true
+
+  consistency_policy {
+    consistency_level       = "BoundedStaleness"
+    max_interval_in_seconds = 10
+    max_staleness_prefix    = 200
+  }
+
+  geo_location {
+    location          = var.failover_location
+    failover_priority = 1
+  }
+
+  geo_location {
+    location          = azurerm_resource_group.rg.location
+    failover_priority = 0
+  }
+}
