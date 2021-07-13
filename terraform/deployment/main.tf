@@ -132,7 +132,11 @@ resource "azurerm_cosmosdb_account" "db" {
   }
 
   geo_location {
-    location          = azurerm_resource_group.rg.location
+    location          = var.failover_location
     failover_priority = 0
   }
+}
+
+output "connection_string" {
+  value = azurerm_cosmosdb_account.db.connection_strings
 }
