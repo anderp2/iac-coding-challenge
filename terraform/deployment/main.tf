@@ -24,23 +24,27 @@ variable "vnet1"{
   type = string
 }
 
-variable "vm_size"{
+variable "vm1_name"{
   type = string
 }
 
-variable "vm_publisher"{
+variable "vm1_size"{
   type = string
 }
 
-variable "vm_sku"{
+variable "vm1_publisher"{
   type = string
 }
 
-variable "vm_offer"{
+variable "vm1_sku"{
   type = string
 }
 
-variable "vm_version"{
+variable "vm1_offer"{
+  type = string
+}
+
+variable "vm1_version"{
   type = string
 }
 
@@ -76,10 +80,10 @@ resource "azurerm_network_interface" "nic-cc-dev" {
 }
 
 resource "azurerm_linux_virtual_machine" "vm-cc-dev-1" {
-  name                = "vm-cc-dev-1"
+  name                = vm.vm1_name
   resource_group_name = azurerm_resource_group.rg.name
   location            = azurerm_resource_group.rg.location
-  size                = var.vm_size
+  size                = var.vm1_size
   admin_username      = "adminuser"
   admin_password      = "letmeIN1@"
   disable_password_authentication = "false"
@@ -93,10 +97,10 @@ resource "azurerm_linux_virtual_machine" "vm-cc-dev-1" {
   }
 
   source_image_reference {
-    publisher = var.vm_publisher
-    offer     = var.vm_offer
-    sku       = var.vm_sku
-    version   = var.vm_version
+    publisher = var.vm1_publisher
+    offer     = var.vm1_offer
+    sku       = var.vm1_sku
+    version   = var.vm1_version
   }
 }
 
