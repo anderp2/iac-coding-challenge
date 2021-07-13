@@ -25,7 +25,7 @@ steps:
     
 - task: Bash@3
   inputs:
-    filePath: 'az.tools/terraform_delete.sh'
+    filePath: 'az.tools/terraform.sh'
   env:
     ARM_SUBSCRIPTION_ID: $(kv-arm-subscription-id)
     ARM_CLIENT_ID:       $(kv-arm-client-id)
