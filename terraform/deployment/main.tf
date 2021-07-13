@@ -122,8 +122,7 @@ resource "azurerm_cosmosdb_account" "db" {
   resource_group_name = azurerm_resource_group.rg.name
   offer_type          = "Standard"
   kind                = "GlobalDocumentDB"
-  ip_range_filter     = azurerm_subnet.subnet1.address_prefix
-
+  is_virtual_network_filter_enabled = "true"
   enable_automatic_failover = true
 
   consistency_policy {
@@ -136,6 +135,10 @@ resource "azurerm_cosmosdb_account" "db" {
     location          = var.failover_location
     failover_priority = 0
   }
- 
+  
+  virtual_network_rule  {
+    id                = azurerm_subnet.subnet1.id
+    ignore_missing_vnet_service_endpoint = true
+  } 
 }
 
