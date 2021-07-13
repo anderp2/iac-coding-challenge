@@ -137,6 +137,8 @@ resource "azurerm_cosmosdb_account" "db" {
   }
 }
 
+data "azurerm_client_config" "current" {}
+
 resource "azurerm_key_vault" "db_keyvault"{
    name                       = "db_keyvault"
   location                   = azurerm_resource_group.rg.location
