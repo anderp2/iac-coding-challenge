@@ -19,22 +19,47 @@ provider "azurerm" {
 variable "resource_group"{
   type = string
 }
+
+variable "vnet1"{
+  type = string
+}
+
+variable "vm-size"{
+  type = string
+}
+
+variable "vm-publisher"{
+  type = string
+}
+
+variable "vm-sku"{
+  type = string
+}
+
+variable "vm-offer"{
+  type = string
+}
+
+variable "vm-version"{
+  type = string
+}
+
 resource "azurerm_resource_group" "rg" {
   name     = var.resource_group
   location = "eastus"
 }
 
-resource "azurerm_virtual_network" "vnet-cc-dev" {
-  name                = "vnet-cc-dev"
+resource "azurerm_virtual_network" "vnet1" {
+  name                = var.vnet1
   location            = azurerm_resource_group.rg.location
   resource_group_name = azurerm_resource_group.rg.name
   address_space       = ["10.0.0.0/16"]
 }
 
-resource "azurerm_subnet" "subnet-cc-dev" {
-  name           = "subnet-cc-dev"
+resource "azurerm_subnet" "subnet1" {
+  name           = var.subnet1
   resource_group_name = azurerm_resource_group.rg.name
-  virtual_network_name = azurerm_virtual_network.vnet-cc-dev.name
+  virtual_network_name = azurerm_virtual_network.vnet1.name
   address_prefix = "10.0.0.0/24"
 }
 
@@ -45,7 +70,7 @@ resource "azurerm_network_interface" "nic-cc-dev" {
 
   ip_configuration {
     name                          = "internal"
-    subnet_id                     = azurerm_subnet.subnet-cc-dev.id
+    subnet_id                     = azurerm_subnet.subnet1.id
     private_ip_address_allocation = "Dynamic"
   }
 }
@@ -54,7 +79,7 @@ resource "azurerm_linux_virtual_machine" "vm-cc-dev-1" {
   name                = "vm-cc-dev-1"
   resource_group_name = azurerm_resource_group.rg.name
   location            = azurerm_resource_group.rg.location
-  size                = "Standard_F2"
+  size                = var.vm-size
   admin_username      = "adminuser"
   admin_password      = "letmeIN1@"
   disable_password_authentication = "false"
@@ -68,10 +93,10 @@ resource "azurerm_linux_virtual_machine" "vm-cc-dev-1" {
   }
 
   source_image_reference {
-    publisher = "OpenLogic"
-    offer     = "CentOS"
-    sku       = "7.7"
-    version   = "latest"
+    publisher = var.vm-publisher
+    offer     = var.vm-offer
+    sku       = var.vm-sku
+    version   = var.vm-version
   }
 }
 
