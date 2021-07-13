@@ -56,6 +56,12 @@ variable "failover_location"{
   type = string
 }
 
+variable "db_type"{
+  type = string
+}
+
+database_resource="azurerm_cosmosdb_${var.db_type}_database"
+
 resource "random_integer" "ri" {
   min = 1000
   max = 9999
@@ -116,8 +122,8 @@ resource "azurerm_linux_virtual_machine" "vm-cc-dev-1" {
   }
 }
 
-resource "azurerm_cosmosdb_account" "db" {
-  name                = "tfex-cosmos-db-${random_integer.ri.result}"
+resource "azurerm_cosmosdb_account" "db_account" {
+  name                = "tfex-cosmos-db_account-${random_integer.ri.result}"
   location            = azurerm_resource_group.rg.location
   resource_group_name = azurerm_resource_group.rg.name
   offer_type          = "Standard"
@@ -142,3 +148,9 @@ resource "azurerm_cosmosdb_account" "db" {
   } 
 }
 
+resource var.database_resource "db" {
+  name                = "tfex-cosmos-${var.db_type}-db"
+  resource_group_name = data.azurerm_cosmosdb_account.db_account.resource_group_name
+  account_name        = data.azurerm_cosmosdb_account.db_account.name
+  throughput          = 400
+}
