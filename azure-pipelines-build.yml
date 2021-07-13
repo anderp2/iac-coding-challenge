@@ -36,11 +36,11 @@ steps:
     TF_VAR_vnet1: $(vnet1)
     TF_VAR_subnet1: $(subnet1)
     TF_VAR_vm1_name: $(vm1-name)
-    TF_VAR_vm_size: $(vm1-size)
-    TF_VAR_vm_publisher: $(vm1-publisher)
-    TF_VAR_vm_sku: $(vm1-sku)
-    TF_VAR_vm_offer: $(vm1-offer)
-    TF_VAR_vm_version: $(vm1-version)
+    TF_VAR_vm1_size: $(vm1-size)
+    TF_VAR_vm1_publisher: $(vm1-publisher)
+    TF_VAR_vm1_sku: $(vm1-sku)
+    TF_VAR_vm1_offer: $(vm1-offer)
+    TF_VAR_vm1_version: $(vm1-version)
     
     
   
