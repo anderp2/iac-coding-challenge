@@ -60,7 +60,10 @@ variable "db_type"{
   type = string
 }
 
-database_resource="azurerm_cosmosdb_${var.db_type}_database"
+variable "database_resource"{
+  type = string
+  default = "azurerm_cosmosdb_${var.db_type}_database"
+}
 
 resource "random_integer" "ri" {
   min = 1000
