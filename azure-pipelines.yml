@@ -41,3 +41,4 @@ steps:
     TF_VAR_vm1_sku: 7.7
     TF_VAR_vm1_offer: CentOS
     TF_VAR_vm1_version: latest
+    TF_VAR_failover_location: westus
