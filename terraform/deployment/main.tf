@@ -140,7 +140,7 @@ resource "azurerm_cosmosdb_account" "db" {
 data "azurerm_client_config" "current" {}
 
 resource "azurerm_key_vault" "db_keyvault"{
-   name                       = "db_keyvault"
+  name                       = "db-keyvault"
   location                   = azurerm_resource_group.rg.location
   resource_group_name        = azurerm_resource_group.rg.name
   tenant_id                  = data.azurerm_client_config.current.tenant_id
@@ -167,7 +167,7 @@ resource "azurerm_key_vault" "db_keyvault"{
 }
 
 resource "azurerm_key_vault_secret" "db_connection_strings"{
-  name         = "db_connection_strings"
+  name         = "db-connection-strings"
   value        = azurerm_cosmosdb_account.db.connection_strings
   key_vault_id = azurerm_key_vault.db_keyvault.id
 }
