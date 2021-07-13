@@ -60,10 +60,6 @@ variable "db_type"{
   type = string
 }
 
-variable "database_resource"{
-  type = string
-}
-
 resource "random_integer" "ri" {
   min = 1000
   max = 9999
