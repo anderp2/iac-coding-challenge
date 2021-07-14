@@ -85,6 +85,13 @@ resource "azurerm_virtual_network" "vnet1" {
   address_space       = ["10.1.0.0/16"]
 }
 
+resource "azurerm_virtual_network_peering" "vnetpeer" {
+  name                      = "cc-to-ci"
+  resource_group_name       = azurerm_resource_group.rg.name
+  virtual_network_name      = azurerm_virtual_network.vnet1.name
+  remote_virtual_network_id = /subscriptions/24249cfa-81f0-427c-932d-621edd58f968/resourceGroups/rg-ci/providers/Microsoft.Network/virtualNetworks/rg-ci-vnet
+}
+
 resource "azurerm_subnet" "subnet1" {
   name           = var.subnet1
   resource_group_name = azurerm_resource_group.rg.name
