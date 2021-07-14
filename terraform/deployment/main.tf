@@ -130,8 +130,9 @@ resource "azurerm_cosmosdb_account" "db_account" {
   enable_automatic_failover = true
 
   capabilities {
-    name = "EnableGremlin"
+    name = var.db_type == "gremlin" ? "EnableGremlin" : ""
   }
+  
   consistency_policy {
     consistency_level       = "BoundedStaleness"
     max_interval_in_seconds = 600
