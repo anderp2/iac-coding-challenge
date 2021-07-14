@@ -128,11 +128,6 @@ resource "azurerm_cosmosdb_account" "db_account" {
   kind                = var.db_type == "mongo" ? "MongoDB" : "GlobalDocumentDB" 
   is_virtual_network_filter_enabled = true
   enable_automatic_failover = true
-
-  capabilities {
-    name = var.db_type == "gremlin" ? "EnableGremlin" : ""
-    count = var.db_type == "gremline" ? 1 : 0
-  }
   
   consistency_policy {
     consistency_level       = "BoundedStaleness"
