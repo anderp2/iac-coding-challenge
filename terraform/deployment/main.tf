@@ -138,12 +138,12 @@ resource "azurerm_cosmosdb_account" "db_account" {
   is_virtual_network_filter_enabled = true
   enable_automatic_failover = true
   
-  dynamic capabilities { 
-    for_each = var.capabilities
-    content {
-      name = capabilities.value
-    }
-  }
+#  dynamic capabilities { 
+#    for_each = var.capabilities
+#    content {
+#      name = capabilities.value
+#    }
+#  }
   consistency_policy {
     consistency_level       = "BoundedStaleness"
     max_interval_in_seconds = 600
