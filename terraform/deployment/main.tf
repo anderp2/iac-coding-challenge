@@ -153,3 +153,20 @@ resource "azurerm_cosmosdb_mongo_database" "mongo_db" {
   account_name        = azurerm_cosmosdb_account.db_account.name
   throughput          = 400
 }
+
+resource "azurerm_cosmosdb_sql_database" "sql_db" {
+  count               = var.db_type == "sql" ? 1 : 0
+  name                = "tfex-cosmos-${var.db_type}-db"
+  resource_group_name = azurerm_cosmosdb_account.db_account.resource_group_name
+  account_name        = azurerm_cosmosdb_account.db_account.name
+  throughput          = 400
+}
+
+resource "azurerm_cosmosdb_gremlin_database" "gremlin_db" {
+  count               = var.db_type == "gremlin" ? 1 : 0
+  name                = "tfex-cosmos-${var.db_type}-db"
+  resource_group_name = azurerm_cosmosdb_account.db_account.resource_group_name
+  account_name        = azurerm_cosmosdb_account.db_account.name
+  throughput          = 400
+}
+
