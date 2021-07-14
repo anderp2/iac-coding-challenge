@@ -122,7 +122,7 @@ resource "azurerm_linux_virtual_machine" "vm-cc-dev-1" {
 
 resource "azurerm_cosmosdb_account" "db_account" {
   name                = "tfex-cosmos-db-account-${random_integer.ri.result}"
-  location            = "westus"
+  location            = azurerm_resource_group.rg.location
   resource_group_name = azurerm_resource_group.rg.name
   offer_type          = "Standard"
   kind                = "GlobalDocumentDB"
@@ -136,7 +136,7 @@ resource "azurerm_cosmosdb_account" "db_account" {
   }
 
   geo_location {
-    location          = azurerm_resource_group.rg.location
+    location          = "eastus2"
     failover_priority = 0
   }
   
