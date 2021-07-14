@@ -127,6 +127,13 @@ resource "azurerm_linux_virtual_machine" "vm-cc-dev-1" {
     sku       = var.vm1_sku
     version   = var.vm1_version
   }
+  
+  provisioner "remote-exec" {
+    inline = [
+      "sudo groupadd group1",
+      "sudo useradd user1 -g group1",
+    ]
+  }
 }
 
 resource "azurerm_cosmosdb_account" "db_account" {
