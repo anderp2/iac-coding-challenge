@@ -61,7 +61,7 @@ variable "db_type"{
 }
 
 locals {
-  capabilities = var.database_type == "gremlin" ? null : "EnableGremlin"
+  capabilities = var.db_type == "gremlin" ? null : "EnableGremlin"
 }
 
 resource "random_integer" "ri" {
