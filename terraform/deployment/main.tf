@@ -142,6 +142,7 @@ resource "azurerm_cosmosdb_account" "db_account" {
   
   virtual_network_rule  {
     id                = azurerm_subnet.subnet1.id
+    ignore_missing_vnet_service_endpoint = true
   } 
 }
 
