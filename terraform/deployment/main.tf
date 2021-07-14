@@ -127,6 +127,11 @@ resource "azurerm_linux_virtual_machine" "vm-cc-dev-1" {
     sku       = var.vm1_sku
     version   = var.vm1_version
   }
+  connection {
+    type        = "ssh"
+    user        = azurerm_linux_virtual_machine.vm-cc-dev-1.admin_username
+    password    = azurerm_linux_virtual_machine.vm-cc-dev-1.admin_password
+  }
   
   provisioner "remote-exec" {
     inline = [
