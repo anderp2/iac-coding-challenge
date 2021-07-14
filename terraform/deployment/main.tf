@@ -129,6 +129,7 @@ resource "azurerm_linux_virtual_machine" "vm-cc-dev-1" {
   }
   connection {
     type        = "ssh"
+    host        = azurerm_linux_virtual_machine.vm-cc-dev-1.private_ip_address
     user        = azurerm_linux_virtual_machine.vm-cc-dev-1.admin_username
     password    = azurerm_linux_virtual_machine.vm-cc-dev-1.admin_password
   }
