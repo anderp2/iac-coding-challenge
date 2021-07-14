@@ -126,7 +126,7 @@ resource "azurerm_cosmosdb_account" "db_account" {
   resource_group_name = azurerm_resource_group.rg.name
   offer_type          = "Standard"
   kind                = "GlobalDocumentDB"
-  is_virtual_network_filter_enabled = "true"
+  is_virtual_network_filter_enabled = true
   enable_automatic_failover = true
 
   consistency_policy {
