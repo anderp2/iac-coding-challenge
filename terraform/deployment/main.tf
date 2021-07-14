@@ -146,7 +146,7 @@ resource "azurerm_cosmosdb_account" "db_account" {
   } 
 }
 
-resource "azurerm_comosdb_mongo_database" "mongo_db" {
+resource "azurerm_cosmosdb_mongo_database" "mongo_db" {
   count               = var.db_type == "mongo" ? 1 : 0
   name                = "tfex-cosmos-${var.db_type}-db"
   resource_group_name = data.azurerm_cosmosdb_account.db_account.resource_group_name
