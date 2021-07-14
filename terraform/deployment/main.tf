@@ -60,6 +60,11 @@ variable "db_type"{
   type = string
 }
 
+variable "capabilities"{
+  type = string
+  default = null
+}
+
 locals {
   capabilities = var.db_type == "gremlin" ? null : "EnableGremlin"
 }
