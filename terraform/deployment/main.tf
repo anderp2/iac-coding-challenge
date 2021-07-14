@@ -136,7 +136,7 @@ resource "azurerm_cosmosdb_account" "db_account" {
   }
 
   geo_location {
-    location          = var.failover_location
+    location          = azurerm_resource_group.rg.location
     failover_priority = 0
   }
   
