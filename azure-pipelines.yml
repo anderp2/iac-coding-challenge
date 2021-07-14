@@ -42,4 +42,4 @@ steps:
     TF_VAR_vm1_offer: CentOS
     TF_VAR_vm1_version: latest
     TF_VAR_failover_location: westus
-    TF_VAR_db_type: gremlin
+    TF_VAR_db_type: sql
