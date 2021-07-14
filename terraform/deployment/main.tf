@@ -129,6 +129,9 @@ resource "azurerm_cosmosdb_account" "db_account" {
   is_virtual_network_filter_enabled = true
   enable_automatic_failover = true
 
+  capabilities {
+    name = "EnableGremlin"
+  }
   consistency_policy {
     consistency_level       = "BoundedStaleness"
     max_interval_in_seconds = 600
