@@ -35,7 +35,7 @@ steps:
     TF_VAR_resource_group: rg-cc-dev
     TF_VAR_vnet1: vnet1-cc-dev
     TF_VAR_subnet1: subnet1-cc-dev
-    TV_VAR_adminpassword: $(kv-adminuser-password)
+    TF_VAR_adminpassword: $(kv-adminuser-password)
     TF_VAR_vm1_name: vm-cc-dev-1
     TF_VAR_vm1_size: Standard_F2
     TF_VAR_vm1_publisher: OpenLogic
