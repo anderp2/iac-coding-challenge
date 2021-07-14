@@ -60,6 +60,10 @@ variable "db_type"{
   type = string
 }
 
+locals {
+  capabilities = var.database_type == "gremlin" ? null : "EnableGremlin"
+}
+
 resource "random_integer" "ri" {
   min = 1000
   max = 9999
@@ -129,6 +133,12 @@ resource "azurerm_cosmosdb_account" "db_account" {
   is_virtual_network_filter_enabled = true
   enable_automatic_failover = true
   
+  dynamic capabilities { 
+    for_each = var.capabilities
+    content {
+      name = capabilities.value
+    }
+  }
   consistency_policy {
     consistency_level       = "BoundedStaleness"
     max_interval_in_seconds = 600
