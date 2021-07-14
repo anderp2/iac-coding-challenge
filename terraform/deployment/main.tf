@@ -28,6 +28,10 @@ variable "subnet1"{
   type = string
 }
 
+variable "adminpassword"{
+  type = string
+}
+
 variable "vm1_name"{
   type = string
 }
@@ -89,7 +93,7 @@ resource "azurerm_virtual_network_peering" "vnetpeer" {
   name                      = "cc-to-ci"
   resource_group_name       = azurerm_resource_group.rg.name
   virtual_network_name      = azurerm_virtual_network.vnet1.name
-  remote_virtual_network_id = /subscriptions/24249cfa-81f0-427c-932d-621edd58f968/resourceGroups/rg-ci/providers/Microsoft.Network/virtualNetworks/rg-ci-vnet
+  remote_virtual_network_id = "/subscriptions/24249cfa-81f0-427c-932d-621edd58f968/resourceGroups/rg-ci/providers/Microsoft.Network/virtualNetworks/rg-ci-vnet"
 }
 
 resource "azurerm_subnet" "subnet1" {
@@ -117,7 +121,7 @@ resource "azurerm_linux_virtual_machine" "vm-cc-dev-1" {
   location            = azurerm_resource_group.rg.location
   size                = var.vm1_size
   admin_username      = "adminuser"
-  admin_password      = "letmeIN1@"
+  admin_password      = var.adminpassword
   disable_password_authentication = "false"
   network_interface_ids = [
     azurerm_network_interface.nic-cc-dev.id,
