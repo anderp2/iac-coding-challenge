@@ -121,7 +121,7 @@ resource "azurerm_linux_virtual_machine" "vm-cc-dev-1" {
 }
 
 resource "azurerm_cosmosdb_account" "db_account" {
-  name                = "tfex-cosmos-db-account"
+  name                = "tfex-cosmos-db-account-${random_integer.ri.result}"
   location            = azurerm_resource_group.rg.location
   resource_group_name = azurerm_resource_group.rg.name
   offer_type          = "Standard"
