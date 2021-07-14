@@ -121,7 +121,7 @@ resource "azurerm_linux_virtual_machine" "vm-cc-dev-1" {
 }
 
 resource "azurerm_cosmosdb_account" "db_account" {
-  name                = "tfex-cosmos-db-account-${random_integer.ri.result}"
+  name                = "tfex-cosmos-db-account"
   location            = azurerm_resource_group.rg.location
   resource_group_name = azurerm_resource_group.rg.name
   offer_type          = "Standard"
@@ -146,9 +146,10 @@ resource "azurerm_cosmosdb_account" "db_account" {
   } 
 }
 
-#resource var.database_resource "db" {
-#  name                = "tfex-cosmos-${var.db_type}-db"
-#  resource_group_name = data.azurerm_cosmosdb_account.db_account.resource_group_name
-#  account_name        = data.azurerm_cosmosdb_account.db_account.name
-#  throughput          = 400
-#}
+resource "azurerm_comosdb_mongo_database" "mongo_db" {
+  count               = var.db_type == "mongo" : 1 : 0
+  name                = "tfex-cosmos-${var.db_type}-db"
+  resource_group_name = data.azurerm_cosmosdb_account.db_account.resource_group_name
+  account_name        = data.azurerm_cosmosdb_account.db_account.name
+  throughput          = 400
+}
