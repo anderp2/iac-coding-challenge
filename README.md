@@ -20,7 +20,7 @@ Azure Devops Pipeline
 =====================
 **Filename:**  azure-pipelines.yaml
 
-**Usage:**  This file can be used to configure both a resource deployment and resource delete pipeline for the Coding Challenge. The resource deployment pipeline should be configured / run with an Azure Devops UI varialbe "ACTION = apply". The resource delete pipeline should be configured / run with an Azure Devops UI variable ACTION = destroy.
+**Usage:**  This file can be used to configure both a resource deployment and resource delete pipeline for the Coding Challenge. The resource deployment pipeline should be configured / run with an Azure Devops UI varialbe "ACTION = apply". The resource delete pipeline should be configured / run with an Azure Devops UI variable "ACTION = destroy".
 
 **Pipeline Steps:**
 1) Pull the az.tools github repo
