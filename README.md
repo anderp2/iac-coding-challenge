@@ -10,10 +10,10 @@ Pre-requisites / Azure Resources Managed Outside of this deployment
  - Azure DevOps Agent on Linux VM
  - Service Principal with Subscription level access to create and destroy resources
  - Storage Account to save Terraform tfstate
- - Key Vault to store
-           - Azure Subscription level Service Principal Connection Secrets
-           - Access Key to the Blob Storage Account for tfstate
-           - Linux VM adminuser password
+ - Key Vault to store:
+   - Azure Subscription level Service Principal Connection Secrets
+   - Access Key to the Blob Storage Account for tfstate
+   - Linux VM adminuser password
 - az.tools Github repo with bash script for terraform apply / destroy - https://github.com/anderp2/az.tools
 
 Azure Devops Pipeline
