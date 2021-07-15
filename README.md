@@ -18,16 +18,16 @@ Pre-requisites / Azure Resources Managed Outside of this deployment
 
 Azure Devops Pipeline
 =====================
-**Filename**  azure-pipelines.yaml
+**Filename:**  azure-pipelines.yaml
 
-**Usage**  This file can be used to configure both a resource deployment and resource delete pipeline for the Coding Challenge. The resource deployment pipeline should be configured / run with an Azure Devops UI varialbe "ACTION = apply". The resource delete pipeline should be configured / run with an Azure Devops UI variable ACTION = destroy.
+**Usage:**  This file can be used to configure both a resource deployment and resource delete pipeline for the Coding Challenge. The resource deployment pipeline should be configured / run with an Azure Devops UI varialbe "ACTION = apply". The resource delete pipeline should be configured / run with an Azure Devops UI variable ACTION = destroy.
 
-**Pipeline Steps**
+**Pipeline Steps:**
 1) Pull the az.tools github repo
 2) Connect to and query the Azure keyvault for secret values
 3) Excute az.tools/terraform.sh to apply / destroy resources in terraform deployment code
 
-Environment Variable List:
+**Environment Variable List:**
  - ARM_SUBSCRIPTION_ID (keyvault variable for terraform Service Principal)
  - ARM_CLIENT_ID (keyvault variable for terraform Service Principal)
  - ARM_CLIENT_SECRET (keyvault variable for terraform Service Principal)
@@ -45,3 +45,16 @@ Environment Variable List:
  - TF_VAR_vm1_version (Coding Challenge Linux VM Version ex. latest)
  - TF_VAR_failover_location (Future Use fox Coding Challenge CosmosDB HA Deployment Across Regions ex. westus)
  - TF_VAR_db_type (Coding Challenge Cosmos DB type ex. sql, mongo, or gremlin)
+
+Terraform Deployment Code
+=========================
+**Filename:**  terraform/deployment/main.tf
+
+**Usage:**  The az.tools/terraform.sh script changes into the terraform/deployments/ directory before running terraform init and terraform [apply | destroy]
+
+**Design Decisions / Limitations:**
+ -  The tfstate file is stored in Azure Storage Account for security of sensitive data
+ -  The requirement to output some variables was hampered by newer terraform restrictions for output on "sensitive" variables
+ -  VNET Peering is setup (in the terraform code) between the Virtual Network for the Devops Agent and Coding Challenge VM in order to execute groupadd / useradd commands during deployment of the Linux VM
+ -  The Cosmos DB account is setup in westus region because eastus and eastus2 locations were reporting no resources available to configure the account
+ -  
