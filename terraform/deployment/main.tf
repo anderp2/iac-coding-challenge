@@ -16,6 +16,7 @@ provider "azurerm" {
   features {}
 }
 
+### Declare variables
 variable "resource_group"{
   type = string
 }
@@ -69,6 +70,7 @@ variable "capabilities"{
   default = null
 }
 
+## Not used yet
 locals {
   capabilities = var.db_type == "gremlin" ? null : "EnableGremlin"
 }
@@ -77,6 +79,8 @@ resource "random_integer" "ri" {
   min = 1000
   max = 9999
 }
+
+### Azure Resource Group
 resource "azurerm_resource_group" "rg" {
   name     = var.resource_group
   location = "eastus"
@@ -104,6 +108,8 @@ resource "azurerm_virtual_network_peering" "vnetpeer2" {
   remote_virtual_network_id = azurerm_virtual_network.vnet1.id
 }
 
+
+### Azure subnet
 resource "azurerm_subnet" "subnet1" {
   name           = var.subnet1
   resource_group_name = azurerm_resource_group.rg.name
@@ -111,6 +117,7 @@ resource "azurerm_subnet" "subnet1" {
   address_prefix = "10.1.0.0/24"
 }
 
+### Azure Network Interface
 resource "azurerm_network_interface" "nic-cc-dev" {
   name                = "nic-cc-dev"
   location            = azurerm_resource_group.rg.location
@@ -123,6 +130,7 @@ resource "azurerm_network_interface" "nic-cc-dev" {
   }
 }
 
+### Linux VM
 resource "azurerm_linux_virtual_machine" "vm-cc-dev-1" {
   name                = var.vm1_name
   resource_group_name = azurerm_resource_group.rg.name
@@ -153,6 +161,7 @@ resource "azurerm_linux_virtual_machine" "vm-cc-dev-1" {
     password    = azurerm_linux_virtual_machine.vm-cc-dev-1.admin_password
   }
   
+  ### Add a user and group over ssh - could be abstracted to a shell script that we copy to the VM first then execute over ssh
   provisioner "remote-exec" {
     inline = [
       "sudo groupadd group1",
@@ -161,6 +170,8 @@ resource "azurerm_linux_virtual_machine" "vm-cc-dev-1" {
   }
 }
 
+
+### Acure Cosmos DB Account (eastus and eastus2 are out of resources to deploy in those regions)
 resource "azurerm_cosmosdb_account" "db_account" {
   name                = "tfex-cosmos-db-account-${random_integer.ri.result}"
   location            = azurerm_resource_group.rg.location
@@ -169,7 +180,8 @@ resource "azurerm_cosmosdb_account" "db_account" {
   kind                = var.db_type == "mongo" ? "MongoDB" : "GlobalDocumentDB" 
   is_virtual_network_filter_enabled = true
   enable_automatic_failover = true
-  
+
+#### Future development to EnableGremlin capability in this resource  
 #  dynamic capabilities { 
 #    for_each = var.capabilities
 #    content {
@@ -193,6 +205,8 @@ resource "azurerm_cosmosdb_account" "db_account" {
   } 
 }
 
+
+### Create a mongo_database resource if db_type == mongo
 resource "azurerm_cosmosdb_mongo_database" "mongo_db" {
   count               = var.db_type == "mongo" ? 1 : 0
   name                = "tfex-cosmos-${var.db_type}-db"
@@ -201,6 +215,7 @@ resource "azurerm_cosmosdb_mongo_database" "mongo_db" {
   throughput          = 400
 }
 
+### Create a sql_database resource if db_type == sql
 resource "azurerm_cosmosdb_sql_database" "sql_db" {
   count               = var.db_type == "sql" ? 1 : 0
   name                = "tfex-cosmos-${var.db_type}-db"
@@ -209,6 +224,7 @@ resource "azurerm_cosmosdb_sql_database" "sql_db" {
   throughput          = 400
 }
 
+### Create a gremlin_database resource if db_type == gremlin
 resource "azurerm_cosmosdb_gremlin_database" "gremlin_db" {
   count               = var.db_type == "gremlin" ? 1 : 0
   name                = "tfex-cosmos-${var.db_type}-db"
