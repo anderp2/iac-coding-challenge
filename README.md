@@ -48,7 +48,7 @@ Azure Devops Pipeline
 
 Terraform Deployment Code
 =========================
-**Filename:**  terraform/deployment/main.tf   (yes it's all in 1 file to make it easier to read and trace for this Coding Challenge exercise)
+**Filename:**  terraform/deployment/main.tf   
 
 **Usage:**  The az.tools/terraform.sh script changes into the terraform/deployments/ directory before running terraform init and terraform [apply | destroy]
 
