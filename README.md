@@ -27,7 +27,7 @@ Azure Devops Pipeline
 2) Connect to and query the Azure keyvault for secret values
 3) Excute az.tools/terraform.sh to apply / destroy resources in terraform deployment code
 
-**Environment Variable List:**
+**Environment Variable List for az.tools/terrform.sh:**
  - ARM_SUBSCRIPTION_ID (keyvault variable for terraform Service Principal)
  - ARM_CLIENT_ID (keyvault variable for terraform Service Principal)
  - ARM_CLIENT_SECRET (keyvault variable for terraform Service Principal)
